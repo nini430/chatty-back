@@ -13,14 +13,14 @@ export default async function() {
             log.error('Error connecting to the database');
             process.exit(1);
         }
-     }
+     };
 
-     connect()
+     connect();
 
      mongoose.connection.on('disconnect', ()=>{
         connect();
-    })
-}   
+    });
+}
 
 
 

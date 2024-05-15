@@ -23,5 +23,15 @@
       { "transform": "typescript-transform-paths" },
       { "transform": "typescript-transform-paths", "afterDeclarations": true },
     ],
-  }
+    "paths": {
+      "@errors/*": ["src/errors/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@queues/*": ["src/queues/*"],
+      "@services/*": ["src/services/*"],
+      "@sockets/*": ["src/sockets/*"],
+      "@utils/*": ["src/utils/*"],
+      "@workers/*": ["src/workers/*"],
+      "@root/*": ["src/*"]
+    }
+  },
 }
