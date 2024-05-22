@@ -9,7 +9,7 @@ export default function standardMiddleware(app: Application) {
     cookieSession({
       name: 'session',
       keys: [config.secretKeyOne, config.secretKeyTwo],
-      maxAge: 10000,
+      maxAge: 24 * 7 * 3600000,
       secure: config.env !== 'development'
     })
   );
