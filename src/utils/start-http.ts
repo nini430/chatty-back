@@ -3,13 +3,14 @@ import { createLogger, validateConfig } from 'config';
 import http from 'http';
 import startSocketIO from './socket';
 import Logger from 'bunyan';
+import { Application } from 'express';
 
 const log: Logger = createLogger('server');
 
-const SERVICE_PORT = 5000;
+const SERVICE_PORT = 7000;
 
-export default function startHttpServer() {
-  const httpServer: http.Server = new http.Server();
+export default function startHttpServer(app: Application) {
+  const httpServer: http.Server = new http.Server(app);
   httpServer.listen(SERVICE_PORT, async () => {
     validateConfig();
     await connectDB();

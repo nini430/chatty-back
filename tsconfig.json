@@ -25,12 +25,15 @@
     ],
     "paths": {
       "@errors/*": ["src/errors/*"],
+      "@auth/*": ["src/features/auth/*"],
+      "@user/*": ["src/features/user/*"],
       "@middlewares/*": ["src/middlewares/*"],
       "@queues/*": ["src/queues/*"],
       "@services/*": ["src/services/*"],
       "@sockets/*": ["src/sockets/*"],
       "@utils/*": ["src/utils/*"],
       "@workers/*": ["src/workers/*"],
+      "@decorators/*": ["src/decorators/*"],
       "@root/*": ["src/*"]
     }
   },
