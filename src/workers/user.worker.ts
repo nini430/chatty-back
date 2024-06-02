@@ -1,7 +1,7 @@
 import { createUser } from '@services/db/user.service';
 import { DoneCallback, Job } from 'bull';
 import Logger from 'bunyan';
-import { createLogger } from 'config';
+import { createLogger } from '../../config';
 
 const log: Logger = createLogger('user');
 

@@ -4,7 +4,7 @@ import Joi, {ObjectSchema} from 'joi';
 export const emailSchema: ObjectSchema = Joi.object().keys({
   email: Joi.string().required().email().messages({
     'string.base': 'email should be type of string',
-    'string.required': 'email field is required',
+    'string.empty': 'email field is required',
     'string.email': 'invalid email'
   })
 });

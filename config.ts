@@ -18,7 +18,13 @@ export const config = {
   redisHost: process.env.REDIS_HOST,
   cloudinaryName: process.env.CLOUDINARY_NAME || '',
   cloudinaryApiKey: process.env.CLOUDINARY_API_KEY || '',
-  cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || ''
+  cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET || '',
+  senderEmail: process.env.SENDER_EMAIL || '',
+  senderPassword: process.env.SENDER_PASSWORD || '',
+  sendgridApiKey: process.env.SENDGRID_API_KEY || '',
+  sendgridSender: process.env.SENDGRID_SENDER || ''
+
+
 };
 
 const log: Logger = createLogger('config');

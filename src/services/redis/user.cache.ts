@@ -76,23 +76,28 @@ export const getUserCache=async(key: string)=>{
   };
   try{
     const response = await client.HGETALL(`users:${key}`) as unknown as IUserDocument;
-    response.createdAt = new Date(parseJson(response.createdAt! as string));
-    response.postsCount = parseJson(response.postsCount);
-    response.blocked = parseJson(`${response.blocked}`);
-    response.blockedBy = parseJson(`${response.blockedBy}`);
-    response.notifications = parseJson(`${response.notifications}`);
-    response.social = parseJson(`${response.social}`);
-    response.followersCount = parseJson(`${response.followersCount}`);
-    response.followingCount = parseJson(`${response.followingCount}`);
-    response.bgImageId = parseJson(`${response.bgImageId}`);
-    response.bgImageVersion = parseJson(`${response.bgImageVersion}`);
-    response.profilePicture = parseJson(`${response.profilePicture}`);
-    response.work = parseJson(`${response.work}`);
-    response.school = parseJson(`${response.school}`);
-    response.location = parseJson(`${response.location}`);
-    response.quote = parseJson(`${response.quote}`);
+    if(response) {
+      response.createdAt = new Date(parseJson(response.createdAt! as string));
+      response.postsCount = parseJson(response.postsCount);
+      response.blocked = parseJson(`${response.blocked}`);
+      response.blockedBy = parseJson(`${response.blockedBy}`);
+      response.notifications = parseJson(`${response.notifications}`);
+      response.social = parseJson(`${response.social}`);
+      response.followersCount = parseJson(`${response.followersCount}`);
+      response.followingCount = parseJson(`${response.followingCount}`);
+      response.bgImageId = parseJson(`${response.bgImageId}`);
+      response.bgImageVersion = parseJson(`${response.bgImageVersion}`);
+      response.profilePicture = parseJson(`${response.profilePicture}`);
+      response.work = parseJson(`${response.work}`);
+      response.school = parseJson(`${response.school}`);
+      response.location = parseJson(`${response.location}`);
+      response.quote = parseJson(`${response.quote}`);
 
-    return response;
+      return response;
+    }else{
+      return null;
+    }
+
   }catch(err) {
     throw new ServerError('Server error, try again');
   }
