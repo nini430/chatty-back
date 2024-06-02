@@ -1,14 +1,16 @@
-import { NextFunction, Request, Response } from 'express';
-import joiValidationDecorator from '@decorators/joi-validation-decorator';
+import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { signinSchema } from '@auth/schemes/signin';
 import { getUserByUsername, signToken } from '@services/db/auth.service';
 import { BadRequestError } from '@errors/bad-request-error';
 import { getUserByAuthId } from '@services/db/user.service';
+import { JoiValidationError } from '@errors/joi-validation-error';
 
-
-export async function signinHandler(req: Request, res: Response, next: NextFunction) {
-  joiValidationDecorator(signinSchema, req, next);
+export async function signinHandler(req: Request, res: Response) {
+  const {error} = await Promise.resolve(signinSchema.validate(req.body));
+  if(error?.details) {
+    throw new JoiValidationError(error?.details?.[0].message);
+  }
   const {username, password}=req.body;
   const existingUser = await getUserByUsername(username);
   if(!existingUser) {
@@ -34,8 +36,8 @@ export async function signinHandler(req: Request, res: Response, next: NextFunct
   }, user.id);
 
   const userDocument = {
-    ...user._doc,
-    authId: existingUser.id,
+    ...user,
+    authId: existingUser._id,
     username: existingUser.username,
     email: existingUser.email,
     avatarColor: existingUser.avatarColor,
@@ -44,7 +46,6 @@ export async function signinHandler(req: Request, res: Response, next: NextFunct
   };
 
   req.session = {jwt: token};
-
   return res.status(StatusCodes.OK).json({message:'User logged in successfully', data: userDocument, token});
 }
 

@@ -1,7 +1,7 @@
 import { IAuthDocument, SignupData } from '@auth/interfaces/auth.interface';
 import authModel from '@auth/models/auth.model';
 import { makeLowercase, makeUppercase } from '@utils/helpers';
-import { config } from 'config';
+import { config } from '../../../config';
 import jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
 
@@ -11,8 +11,21 @@ export async function getUserByUsernameOrEmail(username: string, email: string):
 }
 
 export async function getUserByUsername(username: string) {
-  return authModel.findOne({username: makeUppercase(username)});
+  return authModel.findOne({username: makeUppercase(username)}).lean();
 }
+
+export async function getUserByEmail(email: string) {
+  return authModel.findOne({email});
+}
+
+export const updateAuthResetToken=(authId: string, token: string, tokenExpire: number)=>{
+  return authModel.findByIdAndUpdate(authId, {passwordResetToken: token, passwordResetExpires: tokenExpire});
+};
+
+
+export const getUserByResetPasswordToken=(passwordResetToken: string)=>{
+  return authModel.findOne({passwordResetToken, passwordResetExpires: {$gt: Date.now() }});
+};
 
 export const signupData = (data: SignupData): IAuthDocument=>{
   const {_id, avatarColor, email, password, uId, username}= data;

@@ -25,8 +25,6 @@ export interface IUserDocument extends Document {
   notifications: INotificationSettings;
   social: ISocialLinks;
   createdAt?: string | Date;
-  passwordResetToken?: string;
-  passwordResetExpires?: number;
 
 }
 

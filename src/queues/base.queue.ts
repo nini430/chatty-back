@@ -1,13 +1,13 @@
 import Queue, {Job, ProcessCallbackFunction, Queue as QueueType} from 'bull';
-import { config, createLogger } from 'config';
+import { config, createLogger } from '../../config';
 import Logger from 'bunyan';
 import {ExpressAdapter} from '@bull-board/express';
 import {BullAdapter} from '@bull-board/api/bullAdapter';
 import {createBullBoard} from '@bull-board/api';
 import { AuthJob } from '@auth/interfaces/auth.interface';
-import { IUserJob } from '@user/interfaces/user.interface';
+import { EmailJob, IUserJob } from '@user/interfaces/user.interface';
 
-type IBaseQueueData = AuthJob | IUserJob;
+type IBaseQueueData = AuthJob | IUserJob | EmailJob;
 
 let bullAdapters: BullAdapter[]=[];
 
